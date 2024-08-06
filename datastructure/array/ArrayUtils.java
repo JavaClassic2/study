@@ -1,6 +1,7 @@
 package com.nhnacademy;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class ArrayUtils {
     public static void main(String[] args) {
@@ -12,9 +13,9 @@ public class ArrayUtils {
         // testConcatenate();
         // testShuffle();
         // testTally();
-        // testArrayCopy();
+        testArrayCopy();
         // testSieveOfEratosthenes();
-        testPascalTriangle();
+        // testPascalTriangle();
     }
 
     /**
@@ -139,6 +140,18 @@ public class ArrayUtils {
         }
     }
 
+    static void shuffle2(int[] a) {
+        Random random = new Random();
+        
+        for (int i=0; i<a.length; i++) {
+            int num = random.nextInt(a.length);
+    
+            int temp = a[i];
+            a[i] = a[num];
+            a[num] = temp;
+        }
+    }
+
     static int[] tally(String message) {
         int[] numbers = new int[message.length()];
         char[] splitMessage = message.toCharArray();
@@ -157,22 +170,52 @@ public class ArrayUtils {
             }
             result[i] += 1;
         }
+        
+        return result;
+    }
+    
+    static int[] tally2(String message) {
+        int[] result = new int[26];
+
+        String lowerCase = message.toLowerCase();
+
+        for (int i=0; i<message.length(); i++) {
+            result[lowerCase.charAt(i) - 'a']++;
+        }
 
         return result;
     }
 
     static int arraycopy(int[] src, int srcPos, int[] dest, int destPos, int size) {
-        if (src.length <= srcPos || dest.length <= destPos || src.length < srcPos+size || dest.length < destPos + size) {
-            throw new IllegalCallerException();
+        if (src == null || dest == null) {
+            throw new NullPointerException("입력하신 배열이 음수입니다.");
         }
 
-        int[] copy = new int[size];
-        for (int i=0; i<size; i++) {
-            copy[i] = src[i+srcPos];
+        if (src.length < srcPos+size || dest.length < destPos + size) {
+            throw new ArrayIndexOutOfBoundsException("인덱스를 초과하여 복사할 수 없습니다.");
+        }
+        
+        if (srcPos < 0 || destPos < 0 || size < 0) {
+            throw new IllegalCallerException("입력하신 인덱스 혹은 사이즈가 음수값입니다.");
         }
 
-        for (int i=0; i<size; i++) {
-            dest[i+destPos] = copy[i];
+        // int[] copy = new int[size];
+        // for (int i=0; i<size; i++) {
+        //     copy[i] = src[i+srcPos];
+        // }
+
+        // for (int i=0; i<size; i++) {
+        //     dest[i+destPos] = copy[i];
+        // }
+
+        if (srcPos < destPos) {
+            for (int i=size-1; i>=0; i--) {
+                dest[destPos+i] = src[srcPos+i];
+            }
+        } else {
+            for (int i=0; i<size; i++) {
+                dest[destPos+i] = src[srcPos+i];
+            }
         }
 
         return 0;
@@ -186,11 +229,16 @@ public class ArrayUtils {
      * @return
      */
     static double innerProduct(double[] x, double[] y) {
+        if (x == null || y == null) {
+            throw new NullPointerException("입력하신 배열이 null입니다.");
+        }
+
         if (x.length != y.length) {
             throw new IllegalArgumentException("배열의 사이즈가 같지 않습니다.");
         }
 
         int sum=0;
+        // sigma(0, n)  // n == x.length
         for (int i=0; i<x.length; i++) {
             sum += x[i] * y[i];
         }
@@ -201,6 +249,14 @@ public class ArrayUtils {
     // 두 배열의 대수적 외적(algebraic outer product)을 계산하는 메서드를 작성하고, 테스트하세요.
     // p[i][j]=a[i]∗b[j]
     static double[][] outerProduct(double[] x, double[] y) {
+        if (x.length != y.length) {
+            throw new IllegalArgumentException("배열의 사이즈가 같지 않습니다.");
+        }
+
+        if (x.length == 0 || y.length == 0) {
+            throw new IllegalArgumentException("배열의 길이가 0입니다.");
+        }
+
         double[][] result = new double[x.length][y.length];
         
         for(int i=0; i<x.length; i++) {
@@ -215,6 +271,14 @@ public class ArrayUtils {
     // 두 배열의 행렬 곱하여 반환하는 메서드를 작성하고, 테스트하세요.
     // p[i][j]= n∑k=0 a[i][k]×b[k][j]
     static double[][] product(double[][] a, double[][] b) {
+        if (a == null || b == null) {
+            throw new NullPointerException("입력하신 배열이 null입니다.");
+        }
+
+        if (a.length == 0 || b.length == 0) {
+            throw new IllegalArgumentException("배열의 길이가 0입니다.");
+        }
+
         if (a[0].length != b.length) {
             throw new IllegalArgumentException("a와 b 행렬의 길이가 같지 않습니다.");
         }
@@ -222,7 +286,7 @@ public class ArrayUtils {
         double[][] result = new double[a.length][b[0].length];
         
         for(int i=0; i<a.length; i++) {
-            for (int j=0; j<b.length; j++) {
+            for (int j=0; j<b[0].length; j++) {
                 for (int k=0; k<a[0].length; k++) {
                     result[i][j] += a[i][k] * b[k][j];
                 }
@@ -235,6 +299,10 @@ public class ArrayUtils {
     // 배열의 전치 행렬을 생성하여 반환하는 메서드를 작성하고, 테스트하세요.
     // ta[i][j] = a[j][i]
     static double[][] transpose(double[][] a) {
+        if (a == null) {
+            throw new NullPointerException("입력하신 배열이 null입니다.");
+        }
+
         double[][] result = new double[a[0].length][a.length];
         
         for (int i=0; i<a.length; i++) {
