@@ -80,6 +80,11 @@ public class LinkedDataStructures {
             throw new NullPointerException("입력하신 list가 null입니다.");
         }
 
+        if (index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        // for (; p != null && i > 0; i--)
         for (int i=0; i<index; i++) {
             if (list == null) {
                 throw new NoSuchElementException ("index 범위를 초과하였습니다.");
@@ -200,6 +205,10 @@ public class LinkedDataStructures {
      * @excpetion IndexOutOfBoundsException 주어진 위치에 요소 삽입이 불가능한 경우
      */
     static Node insert(Node list, int index, int x) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
         if (list == null) {
             list = new Node(x);
 
@@ -359,6 +368,7 @@ public class LinkedDataStructures {
             return list;
         }
 
+        // append 함수 사용도 가능
         Node node = new Node(list.data, list.next);
         Node result = node;
 
@@ -388,10 +398,16 @@ public class LinkedDataStructures {
      * @param p 시작 인덱스
      * @param q 끝 인덱스
      * @return 리스트에서 p번째부터 q번째 앞까지의 노드들을 복사한 새로운 리스트
+     * @exception IndexOutOfBoundsException
+     * @exception NoSuchElementException
      */
     static Node copyOfRange(Node list, int p, int q) {
         if (list == null) {
             return list;
+        }
+
+        if (p<0 && size(list) < q) {
+            throw new IndexOutOfBoundsException();
         }
 
         Node node = null;;
@@ -463,6 +479,10 @@ public class LinkedDataStructures {
      * @param j 인덱스 번호
      */
     static void swap(Node list, int i, int j) {
+        if (i<0 && j<0 && size(list) < i && size(list) < j) {
+            throw new IndexOutOfBoundsException();
+        }
+
         Node first = getNode(list, i);
         Node second = getNode(list, j);
 
@@ -500,6 +520,10 @@ public class LinkedDataStructures {
         if (list2 == null) {
             return list1;
         }
+
+        // list1.data, list2.data 비교
+        // 작은거 새 리스트에 append하고 넘기기
+        // 남은게 있으면 한번에 넣기
 
         Node result = list1;
 
@@ -549,6 +573,10 @@ public class LinkedDataStructures {
      * @return 왼쪽으로 회전된 리스트
      */
     static Node rotateLeft(Node list) {
+        if (list == null) {
+            return list;
+        }
+        
         Node start = list;
 
         int first = get(list, 0);
