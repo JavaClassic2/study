@@ -3,7 +3,7 @@ package com.nhn;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import com.nhn.world.World;
+import com.nhn.world.BreakBricks;
 
 public class Main {
     private static final int FRAME_WIDTH = 1600;
@@ -11,16 +11,16 @@ public class Main {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Break Bricks");
-        World world = new World(5);
-
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(world);
+        
+        BreakBricks breakBricks = new BreakBricks(5);
+        frame.add(breakBricks);
         frame.setVisible(true);
 
-        BreakBricks breakBricks = new BreakBricks(world);
+        breakBricks.prepareWorld();
         breakBricks.setBricks(10, 3);
 
-        world.run();
+        breakBricks.run();
     }
 }
