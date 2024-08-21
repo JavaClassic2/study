@@ -2,7 +2,7 @@ package com.nhn.rectangle;
 
 import java.awt.Color;
 
-import com.nhn.object.Breakable;
+import com.nhn.effect.Breakable;
 
 public class Brick extends Box implements Breakable {
 

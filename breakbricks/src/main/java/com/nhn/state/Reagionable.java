@@ -1,4 +1,4 @@
-package com.nhn.object;
+package com.nhn.state;
 
 import java.awt.Rectangle;
 

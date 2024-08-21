@@ -2,7 +2,7 @@ package com.nhn.rectangle;
 
 import java.awt.Color;
 
-import com.nhn.object.Controllable;
+import com.nhn.state.Controllable;
 
 public class Bar extends Box implements Controllable {
 

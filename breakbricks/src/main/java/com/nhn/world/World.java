@@ -8,13 +8,13 @@ import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 
-import com.nhn.object.Breakable;
-import com.nhn.object.Collision;
-import com.nhn.object.GameOver;
-import com.nhn.object.Movable;
-import com.nhn.object.Paintable;
-import com.nhn.object.Reagionable;
+import com.nhn.effect.Breakable;
+import com.nhn.effect.GameOver;
 import com.nhn.rectangle.GameOverBlock;
+import com.nhn.state.Collision;
+import com.nhn.state.Movable;
+import com.nhn.state.Paintable;
+import com.nhn.state.Reagionable;
 
 public class World extends JPanel {
     private static final int DEFAULT_DT = 10;

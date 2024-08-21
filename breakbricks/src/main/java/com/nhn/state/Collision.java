@@ -1,4 +1,4 @@
-package com.nhn.object;
+package com.nhn.state;
 
 public class Collision {
     private Movable movable;

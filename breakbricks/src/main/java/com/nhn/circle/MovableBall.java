@@ -2,7 +2,7 @@ package com.nhn.circle;
 
 import java.awt.Color;
 
-import com.nhn.object.Movable;
+import com.nhn.state.Movable;
 
 public class MovableBall extends Ball implements Movable {
     private int dx;

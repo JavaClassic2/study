@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.nhn.object.Paintable;
+import com.nhn.state.Paintable;
 
 public class Ball implements Paintable {
     private int x;

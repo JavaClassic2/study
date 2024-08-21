@@ -2,7 +2,7 @@ package com.nhn.rectangle;
 
 import java.awt.Color;
 
-import com.nhn.object.GameOver;
+import com.nhn.effect.GameOver;
 
 public class GameOverBlock extends Box implements GameOver{
 

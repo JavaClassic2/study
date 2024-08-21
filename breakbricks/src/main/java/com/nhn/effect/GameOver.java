@@ -1,4 +1,4 @@
-package com.nhn.object;
+package com.nhn.effect;
 
 public interface GameOver {
     
